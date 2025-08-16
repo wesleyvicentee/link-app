@@ -1,11 +1,12 @@
-import { Text, View } from 'react-native'
-import { styles } from './styles'
+import { View } from 'react-native'
+import Header from '@/components/header'
+
+import { styles } from '@/app/index/styles'
 
 export default function Index(){
     return (
         <View style={ styles.container }>
-            <Text style={ styles.textDefault }>Vamo que vamo!</Text>
-            <Text style={ styles.textDefault }>wesley</Text>
+            <Header></Header>
         </View>
     )
 }
