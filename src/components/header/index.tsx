@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { styles } from './styles'
 import { colors } from '@/styles/colors'
 
-export default function Header(){
+export function Header(){
     return (
         <View style={ styles.header }>
             <Image source={require('@/assets/logo.png')} style={ styles.logo }/>    
