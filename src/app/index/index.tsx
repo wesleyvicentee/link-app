@@ -8,7 +8,9 @@ export default function Index(){
     return (
         <View style={ styles.container }>
             <Header />
-            <Category />
+            <Category name="Projeto" icon="code" isSelected />
+            <Category name="Vídeo" icon="movie" isSelected={false} />
+            <Category name="Site" icon="language" isSelected={false} />
         </View>
     )
 }
