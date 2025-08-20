@@ -15,7 +15,7 @@ export function Category({ name, icon, isSelected, ...rest }: Props){
 
     return (
         <Pressable style={ styles.container } { ...rest }>
-            <MaterialIcons name={ icon } size={32} color={ color }></MaterialIcons>
+            <MaterialIcons name={ icon } size={24} color={ color }></MaterialIcons>
             <Text style={ [styles.name, { color }] }>{ name }</Text>
         </Pressable>
     )
