@@ -19,7 +19,9 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 24
     },
-    modalContent: {},
+    modalContent: {
+        marginBottom: 24,
+    },
     modalCategory: {
         flex: 1,
         fontSize: 16,
@@ -36,4 +38,11 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         color: colors.gray[400]
     },
+    modalFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingTop: 24,
+        borderTopWidth: 1,
+        borderTopColor: colors.gray[600],
+    }
 })
