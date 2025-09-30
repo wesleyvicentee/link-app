@@ -6,4 +6,13 @@ export const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 62,
     },
+    links: {
+        borderTopWidth: 1,
+        borderTopColor: colors.gray[600],
+    },
+    linksContent: {
+        gap: 20,
+        padding: 24,
+        paddingBottom: 100,
+    },
 })
