@@ -4,6 +4,8 @@ import { Categories } from '@/components/categories'
 import { Link } from '@/components/link'
 import { LinkModal } from '@/components/link-modal'
 
+import { router } from "expo-router";
+
 import { styles } from '@/app/index/styles'
 
 export default function Index(){

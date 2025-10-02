@@ -14,7 +14,7 @@ type Props = {
 
 export function LinkModal() {
     return (
-        <Modal transparent visible={ true }>
+        <Modal transparent visible={ false }>
             <View style={ styles.modal }>
                 <View style={ styles.modalContainer }>
                     <View style={ styles.modalHeader }>
@@ -28,8 +28,8 @@ export function LinkModal() {
                         <Text style={ styles.modalUrl }>www.instagram.com.br</Text>
                     </View>
                     <View style={ styles.modalFooter }>
-                        <Option name="Abrir" icon="language"/>
                         <Option name="Excluir" icon="delete" variant="secondary"/>
+                        <Option name="Abrir" icon="language"/>
                     </View>
                 </View>
             </View>
