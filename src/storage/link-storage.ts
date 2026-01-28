@@ -1,0 +1,30 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const LINK_STORAGE_KEY = "links-storage";
+
+export type LinkProps = {
+    id: string,
+    name: string,
+    url: string,
+    category: string
+}
+
+async function get(): Promise<LinkProps[]> {
+    const storage = await AsyncStorage.getItem(LINK_STORAGE_KEY);
+    const response = storage ? JSON.parse(storage) : [];
+
+    return response;
+};
+
+async function save(newLink: LinkProps) {
+    try {
+        const storage = await get();
+        const updated = JSON.stringify([...storage, newLink]);
+
+        await AsyncStorage.setItem(LINK_STORAGE_KEY, updated)
+    } catch (error) {
+        throw error
+    }
+}
+
+export const linkStorage = { get, save }

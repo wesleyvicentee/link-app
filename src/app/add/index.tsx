@@ -11,23 +11,42 @@ import { styles } from "./styles"
 import { colors } from "@/styles/colors"
 import { Button } from "@/components/button";
 
+import { linkStorage, LinkProps } from "@/storage/link-storage";
+
 export default function() {
     const [category, setCategory] = useState('')
     const [name, setName] = useState('')
     const [url, setUrl] = useState('')
 
-    function handleAdd(){
-        const errors = [];
+    async function handleAdd() {
+        try {
+            const errors = [];
+    
+            if (!category) errors.push('Categoria');
+            if (!name.trim()) errors.push('Nome');
+            if (!url.trim()) errors.push('URL');
+          
+            if (errors.length) {
+                return Alert.alert('Verifique os campos', errors.join('\n'));
+            }
+    
+            await linkStorage.save({
+                id: new Date().getTime().toString(),
+                category,
+                name,
+                url
+            })
 
-        if (!category) errors.push('Categoria');
-        if (!name.trim()) errors.push('Nome');
-        if (!url.trim()) errors.push('URL');
-      
-        if (errors.length) {
-            return Alert.alert('Verifique os campos', errors.join('\n'));
+            Alert.alert('Sucesso', 'Novo link adicionado.', [
+                {
+                    text: 'OK',
+                    onPress: () => router.back()
+                }
+            ])
+
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível salvar o link.')
         }
-
-        console.log({category, name, url})
     }
 
     return (
@@ -43,8 +62,13 @@ export default function() {
             <Categories selected={category} onChange={setCategory}/>
 
             <View style={styles.form}>
-                <Input placeholder="Nome" onChangeText={setName} autoCorrect={false}/>
-                <Input placeholder="Url" onChangeText={setUrl} autoCorrect={false}/>
+                <Input placeholder="Nome"
+                       onChangeText={setName}
+                       autoCorrect={false} />
+                <Input placeholder="Url"
+                       onChangeText={setUrl}
+                       autoCorrect={false}
+                       autoCapitalize="none" />
                 <Button title="Adicionar" onPress={handleAdd}/>
             </View>
         </View>
