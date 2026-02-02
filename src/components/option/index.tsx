@@ -7,12 +7,12 @@ import { colors } from "@/styles/colors"
 type Props = TouchableOpacityProps & {
     name: string,
     icon: keyof typeof MaterialIcons.glyphMap
-    variant?: "primary" | "secondary", 
+    variant?: "primary" | "secondary",
 }
 
-export function Option({ name, icon, variant = "primary", ...rest }: Props) {
+export function Option({ name, icon, variant = "primary", onPress, ...rest }: Props) {
     return (
-        <TouchableOpacity style={ styles.container } { ...rest } activeOpacity={ 0.7 }>
+        <TouchableOpacity style={ styles.container } { ...rest } onPress={onPress} activeOpacity={ 0.7 }>
             <MaterialIcons 
                 name={ icon }
                 size={ 20 }

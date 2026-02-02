@@ -1,4 +1,4 @@
-import { View, FlatList, Alert, Text } from 'react-native'
+import { View, FlatList, Alert, Linking } from 'react-native'
 import { useCallback, useState } from 'react'
 import { useFocusEffect } from "expo-router";
 
@@ -16,7 +16,9 @@ import { EmptyList } from '@/components/emptyList';
 export default function Index(){
     const [category, setCategory] = useState(categories[0].name)
     const [links, setLinks] = useState<LinkProps[]>([])
+    const [link, setLink] = useState<LinkProps>({} as LinkProps)
     const [emptyCategory, setEmptyCategory] = useState(true)
+    const [showModal, setShowModal] = useState(false)
 
     async function getLinks() {
         try {
@@ -26,6 +28,36 @@ export default function Index(){
             setLinks(filtered)
         } catch (error) {
             Alert.alert('Erro', "Não foi possível recuperar os links")
+        }
+    }
+
+    function handleModal(selected: LinkProps) {
+        setShowModal(true)
+        setLink(selected)
+    }
+
+    async function linkRemove() {
+        try {
+            await linkStorage.remove(link.id)
+            getLinks()
+            setShowModal(false)
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível excluir este link.")
+        }
+    }
+
+    function handleDeleteLink() {
+        Alert.alert("Excluir", "Deseja excluir esse link?", [
+            { style: "cancel", text: "Não" },
+            {text: "Sim", onPress: linkRemove}
+        ])
+    }
+
+    async function handleOpenLink(url: string) {
+        try {
+            await Linking.openURL(url)
+        } catch (error) {
+            Alert.alert('Link', 'Não foi possível abrir seu link.')
         }
     }
 
@@ -48,7 +80,7 @@ export default function Index(){
                         <Link
                             name={item.name}
                             url={item.url}
-                            onDetails={() => console.log('Details pressed')}
+                            onDetails={() => handleModal(item)}
                         />
                     )}
                     showsVerticalScrollIndicator={false}
@@ -60,7 +92,25 @@ export default function Index(){
                 )
             }
 
-            <LinkModal />
+            <LinkModal
+                visible={showModal}
+                data={link}
+                onClose={() => setShowModal(false)}
+                actions={[
+                    {
+                        label: 'Excluir',
+                        icon: 'delete',
+                        variant: 'secondary',
+                        onPress: handleDeleteLink
+                    },
+                    {
+                        label: 'Abrir',
+                        icon: 'language',
+                        variant: 'primary',
+                        onPress: () => handleOpenLink(link.url)
+                    }
+                ]}
+            />
         </View>
     )
 }
